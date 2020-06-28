@@ -203,6 +203,22 @@ Create an Intent，and send broadcast.
 
 Create an Intent，and start service.
 
+## app.intentToShell(options)
+
+* `options` {Object}
+
+Create an Intent, and convert it to shell command.
+
+For example:
+```
+shell("am start " + app.intentToShell({
+    packageName: "org.autojs.autojs",
+    className: "org.autojs.autojs.ui.settings.SettingsActivity_"
+}), true);
+```
+
+More info: [intent Spec](https://developer.android.com/studio/command-line/adb#IntentSpec)。
+
 ## app.startActivity(name)
 * `name` {string} OpenAuto.js's activity name. Optional value is:
     * `console` OpenAuto.js console logger
@@ -222,22 +238,6 @@ app.startActivity("console");
 ```
 app.sendBroadcast("inspect_layout_bounds");
 ```
-
-## app.intentToShell(options)
-
-* `options` {Object} 选项
-
-Create an Intent, and convert it to shell command.
-
-For example:
-```
-shell("am start " + app.intentToShell({
-    packageName: "org.autojs.autojs",
-    className: "org.autojs.autojs.ui.settings.SettingsActivity_"
-}), true);
-```
-
-More info: [intent Spec](https://developer.android.com/studio/command-line/adb#IntentSpec)。
 
 ## app.parseUri(uri)
 
