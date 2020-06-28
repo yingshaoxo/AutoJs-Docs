@@ -29,11 +29,11 @@ const fs = require('fs');
 
 const args = process.argv.slice(2);
 let format = 'html';
-let template = '..\\template.html';
-let inputFile = '..\\api\\all.md';
+let template = '../template.html';
+let inputFile = '../api/all.md';
 let nodeVersion = null;
 let analytics = null;
-let out = '..\\docs\\all.html';
+let out = '../docs/all.html';
 
 args.forEach(function(arg) {
   if (!arg.startsWith('--')) {

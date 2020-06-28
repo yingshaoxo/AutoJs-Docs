@@ -12,5 +12,8 @@
   },
   "devDependencies": {},
   "optionalDependencies": {},
-  "bin": "./generate.js"
+  "bin": "./generate.js",
+  "scripts": {
+    "build": "node ./generate.js"
+  }
 }
