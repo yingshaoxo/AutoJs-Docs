@@ -1,3 +1,3 @@
-# Auto.js 文档
+# Auto.js Docs
 
-由docsify构建
+Build with docsify.
