@@ -1,10 +1,10 @@
 # Overview
 
-OpenAuto.js use [JavaScript](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript) as the programming language. 
+OpenAuto.js uses [JavaScript](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript) as the programming language. 
 
 Now it is based on [Rhino 1.7.7.2](https://developer.mozilla.org/zh-CN/docs/Mozilla/Projects/Rhino) js engine, it supports ES5 and part of ES6 features.
 
-We basically support two kinds of automation, one is to use `accessibility ability service`, another is to use ROOT.
+We basically support two kinds of automation, one is to use `accessibility service`, another is to use `ROOT`.
 
 The main module or class we have is:
 * app: start an app, uninstall an app, check an app's usage, edit a text file, visit a website, and so on.
