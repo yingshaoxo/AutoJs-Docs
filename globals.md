@@ -1,76 +1,73 @@
-# 全局变量与函数
+# Global variable and functions
 
-全局变量和函数在所有模块中均可使用。 但以下变量的作用域只在模块内，详见 [module](modules.html)：
+You can use global variable or functions at anywhere within your script.
+
+You can use any built-in Javascript functions, like `setInterval`, `setTimeout`.
+
+Except the following: (see more at [module](modules.html))
 * exports
 * module
 * require()
-以下的对象是特定于 Auto.js 的。 有些内置对象是 JavaScript 语言本身的一部分，它们也是全局的。
-
-一些模块中的函数为了使用方便也可以直接全局使用，这些函数在此不再赘述。例如timers模块的setInterval, setTimeout等函数。
 
 ## sleep(n)
-* `n` {number} 毫秒数
+* `n` {number} Milliseconds
 
-暂停运行n**毫秒**的时间。1秒等于1000毫秒。
+Stop running for n milliseconds.
+
+1 second == 1000 milliseconds.
 
 ```
-//暂停5毫秒
+//pause for 5 seconds
 sleep(5000);
 ```
 
 ## currentPackage()
-* 返回 {string}
+* return {string}
 
-返回最近一次监测到的正在运行的应用的包名，一般可以认为就是当前正在运行的应用的包名。
-
-此函数依赖于无障碍服务，如果服务未启动，则抛出异常并提示用户启动。
+Return the current running package name. (we do it by check the lastest running app)
 
 ## currentActivity()
-* 返回 {string}
+* return {string}
 
-返回最近一次监测到的正在运行的Activity的名称，一般可以认为就是当前正在运行的Activity的名称。
-
-此函数依赖于无障碍服务，如果服务未启动，则抛出异常并提示用户启动。
+Return the current running Activity name. (we do it by check the lastest running activity)
 
 ## setClip(text)
-* `text` {string} 文本
+* `text` {string}
 
-设置剪贴板内容。此剪贴板即系统剪贴板，在一般应用的输入框中"粘贴"既可使用。
+Set clipboard text.
 
 ```
-setClip("剪贴板文本");
+setClip("Hello world");
 ```
 
 ## getClip()
-* 返回 {string}
+* return {string}
 
-返回系统剪贴板的内容。
+Get clipboard text
 
 ```
-toast("剪贴板内容为:" + getClip());
+toast("This is what in your clipboard:" + getClip());
 ```
 
 ## toast(message)
-* message {string} 要显示的信息
+* message {string} text that you want to show
 
-以气泡显示信息message几秒。(具体时间取决于安卓系统，一般都是2秒)
-
-注意，信息的显示是"异步"执行的，并且，不会等待信息消失程序才继续执行。如果在循环中执行该命令，可能出现脚本停止运行后仍然有不断的气泡信息出现的情况。
-例如:
+This function may block the script process. If you are in a loop, and you keep print something, you can not stop this script instantly, for example:
 ```
 for(var i = 0; i < 100; i++){
   toast(i);
 }
 ```
-运行这段程序以后，会很快执行完成，且不断弹出消息，在任务管理中关闭所有脚本也无法停止。
-要保证气泡消息才继续执行可以用：
+
+Add sleep to fix it:
 ```
 for(var i = 0; i < 100; i++){
   toast(i);
   sleep(2000);
 }
 ```
-或者修改toast函数：
+
+Change this function to fix it:
 ```
 var _toast_ = toast;
 toast = function(message){
@@ -83,50 +80,55 @@ for(var i = 0; i < 100; i++){
 ```
 
 ## toastLog(message)
-* message {string} 要显示的信息
+* message {string} 
 
-相当于`toast(message);log(message)`。显示信息message并在控制台中输出。参见console.log。
+Show text and do a log.
+
+Equivalent to `toast(message);log(message)`.  See more at `console.log()`.
 
 ## waitForActivity(activity[, period = 200])
-* `activity` Activity名称
-* `period` 轮询等待间隔（毫秒）
+* `activity` Activity name
+* `period` loop interval（in milliseconds）
 
-等待指定的Activity出现，period为检查Activity的间隔。
+Wait until specific Activity showup. 
 
 ## waitForPackage(package[, period = 200])
-* `package` 包名
-* `period` 轮询等待间隔（毫秒）
+* `package` package name
+* `period` loop interval（in milliseconds）
 
-等待指定的应用出现。例如`waitForPackage("com.tencent.mm")`为等待当前界面为微信。
+Wait until specific app showup. 
+
+For example, `waitForPackage("com.twitter.android")` will block the process until twitter start.
 
 ## exit()
-立即停止脚本运行。
+Instantly stop the running of this script.
 
-立即停止是通过抛出`ScriptInterrupttedException`来实现的，因此如果用`try...catch`把exit()函数的异常捕捉，则脚本不会立即停止，仍会运行几行后再停止。
+We do it by raising `ScriptInterrupttedException`.
 
 ## random(min, max)
-* `min` {number} 随机数产生的区间下界
-* `max` {number} 随机数产生的区间上界
-* 返回 {number}
+* `min` {number}
+* `max` {number}
+* return {number}
 
-返回一个在[min...max]之间的随机数。例如random(0, 2)可能产生0, 1, 2。
+Return a number between min and max. 
+
+For example, random(0, 2) will return a number within [0, 1, 2].
 
 ## random()
-* 返回 {number}
+* return {number}
 
-返回在[0, 1)的随机浮点数。
+return a float between [0, 1).
 
 ## requiresApi(api)
-* `api` Android版本号
+* `api` Android version number
 
-表示此脚本需要Android API版本达到指定版本才能运行。例如`requiresApi(19)`表示脚本需要在Android 4.4以及以上运行。
+For example, `requiresApi(19)` means that this script is only usable at Android 4.4 or higher.
 
-调用该函数时会判断运行脚本的设备系统的版本号，如果没有达到要求则抛出异常。
+We'll raise error if the requirements not meet.
 
-可以参考以下Android API和版本的对照表:
+Android Version vs API table:
 
-
- 平台版本：     API级别
+ Version：     API Level
 
  Android 7.0：  24
 
@@ -143,56 +145,54 @@ for(var i = 0; i < 100; i++){
  Android 4.3：  18
 
 ## requiresAutojsVersion(version)
-* `version` {string} | {number} Auto.js的版本或版本号
+* `version` {string} | {number} OpenAuto.js version number or name
 
-表示此脚本需要Auto.js版本达到指定版本才能运行。例如`requiresAutojsVersion("3.0.0 Beta")`表示脚本需要在Auto.js 3.0.0 Beta以及以上运行。
+For example, `requiresAutojsVersion("3.0.0 Beta")` means that this script is only usable at OpenAuto.js 3.0.0 Beta or higher.
 
-调用该函数时会判断运行脚本的Auto.js的版本号，如果没有达到要求则抛出异常。
+We'll raise error if the requirements not meet.
 
-version参数可以是整数表示版本号，例如`requiresAutojsVersion(250)`；也可以是字符串格式表示的版本，例如"3.0.0 Beta", "3.1.0 Alpha4", "3.2.0"等。
-
-可以通过`app.autojs.versionCode`和`app.autojs.versionName`获取当前的Auto.js版本号和版本。
+You can use `app.autojs.versionCode` and `app.autojs.versionName` to get current OpenAuto.js version number and version name.
 
 ## runtime.requestPermissions(permissions)
-* `permissions` {Array} 权限的字符串数组
+* `permissions` {Array}
 
-动态申请安卓的权限。例如：
+Dynamically require android permission:
 ```
-//请求GPS权限
+//Ask for GPS permission
 runtime.requestPermissions(["access_fine_location"]);
 ```
 
-尽管安卓有很多权限，但必须写入Manifest才能动态申请，为了防止权限的滥用，目前Auto.js只能额外申请两个权限：
-* `access_fine_location` GPS权限
-* `record_audio` 录音权限
+Currently, we only have two permissions in Manifest:
+* `access_fine_location` GPS permission
+* `record_audio` recording permission
 
-您可以通过APK编辑器来增加Auto.js以及Auto.js打包的应用的权限。
+You can use APk editor or compile this software by yourself to add more permissions.
 
-安卓所有的权限列表参见[Permissions Overview](https://developer.android.com/guide/topics/permissions/overview)。（并没有用）
+See more permissions at [Permissions Overview](https://developer.android.com/guide/topics/permissions/overview).
 
 ## runtime.loadJar(path)
-* `path` {string} jar文件路径
+* `path` {string} jar file path
 
-加载目标jar文件，加载成功后将可以使用该Jar文件的类。
+Load jar file, after successfully loading, you would be able to use classes under that jar file:
 ```
-// 加载jsoup.jar
+// load jsoup.jar
 runtime.loadJar("./jsoup.jar");
-// 使用jsoup解析html
+// use jsoup to parse html
 importClass(org.jsoup.Jsoup);
 log(Jsoup.parse(files.read("./test.html")));
 ```
 
-(jsoup是一个Java实现的解析Html DOM的库，可以在[Jsoup](https://jsoup.org/download)下载)
+([Jsoup](https://jsoup.org/download))
 
 ## runtime.loadDex(path)
-* `path` {string} dex文件路径
+* `path` {string} dex file path
 
-加载目标dex文件，加载成功后将可以使用该dex文件的类。
+Load dex file, after successfully loading, you would be able to use classes under that dex file:
 
-因为加载jar实际上是把jar转换为dex再加载的，因此加载dex文件会比jar文件快得多。可以使用Android SDK的build tools的dx工具把jar转换为dex。
+> It would be faster by loading dex than jar
 
 ## context
 
-全局变量。一个android.content.Context对象。
+An instance of `android.content.Context`.
 
-注意该对象为ApplicationContext，因此不能用于界面、对话框等的创建。
+> You can't use this context to create UI.
