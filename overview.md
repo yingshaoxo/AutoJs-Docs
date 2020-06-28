@@ -1,4 +1,4 @@
-# 综述
+# Overview
 
 Auto.js使用[JavaScript](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript)作为脚本语言，目前使用[Rhino 1.7.7.2](https://developer.mozilla.org/zh-CN/docs/Mozilla/Projects/Rhino)作为脚本引擎，支持ES5与部分ES6特性。
 
