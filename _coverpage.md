@@ -1,9 +1,8 @@
 ![logo](images/logo.png)
 
-# Auto.js
+# OpenAuto.js
 
-> **不需要Root权限**的JavaScript自动化软件
+> An Javascript automation tool for android.
 
-[GitHub](https://github.com/hyb1996/Auto.js)
-[软件下载](https://www.coolapk.com/apk/129872)
-[阅读文档](#综述)
+[GitHub](https://github.com/yingshaoxo/OpenAutoJs-Docs)
+[Read Docs](#综述)
