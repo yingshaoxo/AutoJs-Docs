@@ -5,4 +5,4 @@
 > An Javascript automation tool for android.
 
 [GitHub](https://github.com/yingshaoxo/OpenAutoJs-Docs)
-[Read Docs](#综述)
+[Read Docs](#Overview)
