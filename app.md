@@ -1,15 +1,13 @@
 # App
 
-app模块提供一系列函数，用于使用其他应用、与其他应用交互。例如发送意图、打开文件、发送邮件等。
+This module provides a series of functions for interacting with Apps.
 
-同时提供了方便的进阶函数startActivity和sendBroadcast，用他们可完成app模块没有内置的和其他应用的交互。
+Like `starting an app`, `start an activity`, `send a broadcast`, `send a picture`, `send emails`.
 
 ## app.versionCode
 * {number}
 
-当前软件版本号，整数值。例如160, 256等。
-
-如果在Auto.js中运行则为Auto.js的版本号；在打包的软件中则为打包软件的版本号。
+current app version code, like `160`
 
 ```
 toastLog(app.versionCode);
@@ -18,9 +16,7 @@ toastLog(app.versionCode);
 ## app.versionName
 * {string}
 
-当前软件的版本名称，例如"3.0.0 Beta"。
-
-如果在Auto.js中运行则为Auto.js的版本名称；在打包的软件中则为打包软件的版本名称。
+current app version name, like `3.0.0 Beta` 
 
 ```
 toastLog(app.verionName);
@@ -29,142 +25,137 @@ toastLog(app.verionName);
 ## app.autojs.versionCode
 * {number}
 
-Auto.js版本号，整数值。例如160, 256等。
+OpenAuto.js app version code, like `160`
 
 ## app.autojs.versionName
 * {string}
 
-Auto.js版本名称，例如"3.0.0 Beta"。
+OpenAuto.js app version name, like `3.0.0 Beta` 
 
 ## app.launchApp(appName)
-* `appName` {string} 应用名称
+* `appName` {string}
 
-通过应用名称启动应用。如果该名称对应的应用不存在，则返回false; 否则返回true。如果该名称对应多个应用，则只启动其中某一个。
+Start an App by its name.
 
-该函数也可以作为全局函数使用。
+If that App doesn't exist, we return false, else we return true.
 
 ```
-launchApp("Auto.js");
+launchApp("Chrome");
 ```
 
 ## app.launch(packageName)
-* `packageName` {string} 应用包名
+* `packageName` {string}
 
-通过应用包名启动应用。如果该包名对应的应用不存在，则返回false；否则返回true。
+Start an App by its package name.
 
-该函数也可以作为全局函数使用。
+If that App doesn't exist, we return false, else we return true.
 
 ```
-//启动微信
-launch("com.tencent.mm");
+launch("com.android.chrome");
 ```
 
 ## app.launchPackage(packageName)
-* `packageName` {string} 应用包名
+* `packageName` {string}
 
-相当于`app.launch(packageName)`。
+Same API as `app.launch(packageName)`
 
 ## app.getPackageName(appName)
-* `appName` {string} 应用名称
+* `appName` {string}
 
-获取应用名称对应的已安装的应用的包名。如果该找不到该应用，返回null；如果该名称对应多个应用，则只返回其中某一个的包名。
+Get app package name by using app name.
 
-该函数也可以作为全局函数使用。
+If we can not find that app, we return `null`.
 
 ```
-var name = getPackageName("QQ"); //返回"com.tencent.mobileqq"
+var name = getPackageName("Chrome"); //return "com.android.chrome"
 ```
 
 ## app.getAppName(packageName)
-* `packageName` {string} 应用包名
+* `packageName` {string} 
 
-获取应用包名对应的已安装的应用的名称。如果该找不到该应用，返回null。
+Get app name by using app package name.
 
-该函数也可以作为全局函数使用。
+If we can not find that app, we return `null`.
 
 ```
-var name = getAppName("com.tencent.mobileqq"); //返回"QQ"
+var name = getAppName("com.android.chrome"); //return "Chrome"
 ```
 
 ## app.openAppSetting(packageName)
-* `packageName` {string} 应用包名
+* `packageName` {string}
 
-打开应用的详情页(设置页)。如果找不到该应用，返回false; 否则返回true。
+Open the detail or setting page of an app.
 
-该函数也可以作为全局函数使用。
+If we can't find that app, return false, else return true.
 
 ## app.viewFile(path)
-* `path` {string} 文件路径
+* `path` {string}
 
-用其他应用查看文件。文件不存在的情况由查看文件的应用处理。
+Open a file.
 
-如果找不出可以查看该文件的应用，则抛出`ActivityNotException`。
+If we can't find a suitable app to open it, we raise `ActivityNotException`.
 
 ```
-//查看文本文件
 app.viewFile("/sdcard/1.txt");
 ```
 
 ## app.editFile(path)
-* `path` {string} 文件路径
+* `path` {string}
 
-用其他应用编辑文件。文件不存在的情况由编辑文件的应用处理。
+Edit a file.
 
-如果找不出可以编辑该文件的应用，则抛出`ActivityNotException`。
+If we can't find a suitable app to edit it, we raise `ActivityNotException`.
 
 ```
-//编辑文本文件
 app.editFile("/sdcard/1.txt/);
 ```
 
 ## app.uninstall(packageName)
-* `packageName` {string} 应用包名
+* `packageName` {string}
 
-卸载应用。执行后会会弹出卸载应用的提示框。如果该包名的应用未安装，由应用卸载程序处理，可能弹出"未找到应用"的提示。
 ```
-//卸载QQ
-app.uninstall("com.tencent.mobileqq");
+//uninstall an app
+app.uninstall("com.tencent.mm");
 ```
 
 ## app.openUrl(url)
-* `url` {string} 网站的Url，如果不以"http://"或"https://"开头则默认是"http://"。
+* `url` {string}
 
-用浏览器打开网站url。
+Open an url with a browser.
 
-如果没有安装浏览器应用，则抛出`ActivityNotException`。
+If no browser was found, we raise `ActivityNotException`.
 
 ## app.sendEmail(options)
-*  `options` {Object} 发送邮件的参数。包括:
-  * `email` {string} | {Array} 收件人的邮件地址。如果有多个收件人，则用字符串数组表示
-  * `cc` {string} | {Array} 抄送收件人的邮件地址。如果有多个抄送收件人，则用字符串数组表示
-  * `bcc` {string} | {Array} 密送收件人的邮件地址。如果有多个密送收件人，则用字符串数组表示
-  * `subject` {string}  邮件主题(标题)
-  * `text` {string} 邮件正文
-  * `attachment` {string} 附件的路径。
+*  `options` {Object} including:
+  * `email` {string} | {Array} Receiver email address.
+  * `cc` {string} | {Array} Cc recipient's email address.
+  * `bcc` {string} | {Array} Bcc recipient's email address.
+  * `subject` {string} Title
+  * `text` {string} Content
+  * `attachment` {string} attachment file path.
 
-根据选项options调用邮箱应用发送邮件。这些选项均是可选的。
-
-如果没有安装邮箱应用，则抛出`ActivityNotException`。
+If no email app was avaliable, we raise `ActivityNotException`.
 
 ```
-//发送邮件给10086@qq.com和10001@qq.com。
+//send email to 10086@qq.com and 10001@qq.com.
 app.sendEmail({
     email: ["10086@qq.com", "10001@qq.com"],
-    subject: "这是一个邮件标题",
-    text: "这是邮件正文"
+    subject: "This is the title",
+    text: "This is the content"
 });
 ```
 
 ## app.startActivity(name)
-* `name` {string} 活动名称，可选的值为:
-    * `console` 日志界面
-    * `settings` 设置界面
+* `name` {string} OpenAuto.js's activity name. Optional value is:
+    * `console` OpenAuto.js console logger
+    * `settings` OpenAuto.js setting page
 
-启动Auto.js的特定界面。该函数在Auto.js内运行则会打开Auto.js内的界面，在打包应用中运行则会打开打包应用的相应界面。
+Start specific OpenAuto.js page, for example the value 'console' will start the logger page in OpenAuto.js.
 
 ```
 app.startActivity("console");
 ```
+
 
 # 进阶: 意图Intent
 
