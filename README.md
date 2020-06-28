@@ -1,3 +1,5 @@
 # Auto.js Docs
 
-Build with docsify.
+Built with docsify.
+
+https://yingshaoxo.github.io/OpenAutoJs-Docs
