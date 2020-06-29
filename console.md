@@ -82,7 +82,7 @@ console.assert(a == 2, "You'll never see this error message");
 Start a timer. It is used to calculate a time interval.
 
 ## console.timeEnd(label)
-* `label` {String} 计时器标签
+* `label` {String}
 
 End a timer, It will print out the time interval to console since you call `console.time`.
 
