@@ -53,14 +53,14 @@ toast("This is what in your clipboard:" + getClip());
 * message {string} text that you want to show
 
 This function may block the script process. If you are in a loop, and you keep print something, you can not stop this script instantly, for example:
-```
+```js
 for(var i = 0; i < 100; i++){
   toast(i);
 }
 ```
 
 Add sleep to fix it:
-```
+```js
 for(var i = 0; i < 100; i++){
   toast(i);
   sleep(2000);
@@ -68,7 +68,7 @@ for(var i = 0; i < 100; i++){
 ```
 
 Change this function to fix it:
-```
+```js
 var _toast_ = toast;
 toast = function(message){
   _toast_(message);

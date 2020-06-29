@@ -24,7 +24,7 @@ Clear console text.
 
 Print text to console with a '\n'.
 
-```
+```js
 const count = 5;
 
 // print 'count: 5' to console
@@ -71,7 +71,7 @@ Similar to `console.log`, but with red color.
 
 If the value == false, we'll stop the running of script.
 
-```
+```js
 var a = 1 + 1;
 console.assert(a == 2, "You'll never see this error message");
 ```
@@ -118,7 +118,7 @@ console.trace('Show me');
 
 Get input from console. We use the `eval` to do the pre-processing.
 
-```
+```js
 var n = console.input("Please input a number:"); 
 //after you type 123
 toast(n + 1);
@@ -133,7 +133,7 @@ toast(n + 1);
 
 Get raw input string from console. 
 
-```
+```js
 var n = console.input("Please input a number:"); 
 //after you type 123
 toast(n + 1);
@@ -148,7 +148,7 @@ toast(n + 1);
 
 Set the console window size.
 
-```
+```js
 console.show();
 console.setSize(device.width / 2, device.height / 2);
 ```
@@ -159,7 +159,7 @@ console.setSize(device.width / 2, device.height / 2);
 
 Set the console window position
 
-```
+```js
 console.show();
 console.setPosition(100, 100);
 ```
@@ -175,7 +175,8 @@ console.setPosition(100, 100);
 Logger settings.
 
 If you want to save your log file to "/sdcard/1.txt", you do this:
-```
+
+```js
 console.setGlobalLogConfig({
     "file": "/sdcard/1.txt"
 });
