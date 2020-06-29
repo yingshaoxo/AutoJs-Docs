@@ -1,107 +1,116 @@
 # Keys
 
-按键模拟部分提供了一些模拟物理按键的全局函数，包括Home、音量键、照相键等，有的函数依赖于无障碍服务，有的函数依赖于root权限。
+This module provide some functions to simulate key pressing.
 
-一般来说，以大写字母开头的函数都依赖于root权限。执行此类函数时，如果没有root权限，则函数执行后没有效果，并会在控制台输出一个警告。
+Some of them are based ROOT.
 
 ## back()
-* 返回 {boolean}
+* return {boolean}
 
-模拟按下返回键。返回是否执行成功。
-此函数依赖于无障碍服务。
+Press back key.
 
 ## home()
-* 返回 {boolean}
+* return {boolean}
 
-模拟按下Home键。返回是否执行成功。
-此函数依赖于无障碍服务。
+Press home key.
 
 ## powerDialog()
-* 返回 {boolean}
+* return {boolean}
 
-弹出电源键菜单。返回是否执行成功。
-此函数依赖于无障碍服务。
+Pop up the power menu.
 
 ## notifications()
-* 返回 {boolean}
+* return {boolean}
 
-拉出通知栏。返回是否执行成功。
-此函数依赖于无障碍服务。
+Show the notification window.
 
 ## quickSettings()
-* 返回 {boolean}
+* return {boolean}
 
-显示快速设置(下拉通知栏到底)。返回是否执行成功。
-此函数依赖于无障碍服务。
+Show the quick setting window. (It's a window you can get if you scroll down your phone screen very hard)
 
 ## recents()
-* 返回 {boolean}
+* return {boolean}
 
-显示最近任务。返回是否执行成功。
-此函数依赖于无障碍服务。
+Show recent tasks window.
 
 ## splitScreen()
-* 返回 {boolean}
+* return {boolean}
 
-分屏。返回是否执行成功。
-此函数依赖于无障碍服务, 并且需要系统自身功能的支持。
+Split the screen.
 
 ## Home()
-模拟按下Home键。
-此函数依赖于root权限。
+Press home key.
+
+**Root permission required.**
 
 ## Back()
-模拟按下返回键。
-此函数依赖于root权限。
+Press back key.
+
+**Root permission required.**
 
 ## Power()
-模拟按下电源键。
-此函数依赖于root权限。
+Press power key.
+
+**Root permission required.**
 
 ## Menu()
-模拟按下菜单键。
-此函数依赖于root权限。
+Press menu key.
+
+**Root permission required.**
 
 ## VolumeUp()
-按下音量上键。
-此函数依赖于root权限。
+Press volume up key.
+
+**Root permission required.**
 
 ## VolumeDown()
-按键音量上键。
-此函数依赖于root权限。
+Press volume down key.
+
+**Root permission required.**
 
 ## Camera()
-模拟按下照相键。
+Press camera key.
 
 ## Up()
-模拟按下物理按键上。
-此函数依赖于root权限。
+Press up key.
+
+**Root permission required.**
 
 ## Down()
-模拟按下物理按键下。
-此函数依赖于root权限。
+Press down key.
+
+**Root permission required.**
 
 ## Left()
-模拟按下物理按键左。
-此函数依赖于root权限。
+Press left key.
+
+**Root permission required.**
 
 ## Right()
-模拟按下物理按键右。
-此函数依赖于root权限。
+Press right key.
+
+**Root permission required.**
 
 ## OK()
-模拟按下物理按键确定。
-此函数依赖于root权限。
+Press ok key.
+
+**Root permission required.**
 
 ## Text(text)
-* text {string} 要输入的文字，只能为英文或英文符号
-输入文字text。例如`Text("aaa");`
+* text {string} text you want to input, only english and sybols are supported
+
+```
+// input the yingshaoxo to the focused input box
+Text("yingshaoxo");
+```
 
 ## KeyCode(code)
-* code {number} | <String> 要按下的按键的数字代码或名称。参见下表。
-模拟物理按键。例如`KeyCode(29)`和`KeyCode("KEYCODE_A")`是按下A键。
+* code {number} | <String> code of a key, see the table below
 
-# 附录: KeyCode对照表
+For pressing A, you have to use `KeyCode(29)` or `KeyCode("KEYCODE_A")`
+
+# Plus: KeyCode Table
 
 KeyCode             KeyEvent Value  
 * KEYCODE_MENU 1  
@@ -189,6 +198,3 @@ KeyCode             KeyEvent Value
 * KEYCODE_NOTIFICATION 83  
 * KEYCODE_SEARCH 84  
 * TAG_LAST_ KEYCODE 85  
-
-
-
