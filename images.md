@@ -377,7 +377,6 @@ See more at [adaptiveThreshold](https://docs.opencv.org/3.4.4/d7/d1b/group__imgp
 * `dstCn` {number} Number of color channels of the target image. It can be ignored.
 * return {Image}
 
-对图像进行颜色空间转换，并返回转换后的图像.
 Image color space conversion. Similar with opencv' version of cvtColor.
 
 See more at [cvtColor](https://docs.opencv.org/3.4.4/d8/d01/group__imgproc__color__conversions.html#ga397ae87e1288a81d2363b61574eb8cab).
