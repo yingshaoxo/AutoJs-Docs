@@ -110,7 +110,7 @@ Text("yingshaoxo");
 
 For pressing A, you have to use `KeyCode(29)` or `KeyCode("KEYCODE_A")`
 
-# Plus: KeyCode Table
+# KeyCode Table
 
 KeyCode             KeyEvent Value  
 * KEYCODE_MENU 1  
