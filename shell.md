@@ -1,34 +1,26 @@
-shell即Unix Shell，在类Unix系统提供与操作系统交互的一系列命令。
-
-很多程序可以用来执行shell命令，例如终端模拟器。
-
-在Auto.js大致等同于用adb执行命令"adb shell"。其实现包括两种方式：
-
-* 通过`java.lang.Runtime.exec`执行(shell, Tap, Home等函数)
-* 通过内嵌终端模拟器执行(RootAutomator, Shell等对象)
-
-# shell函数
+# shell command
 
 > Stability: 2 - Stable
 
 ## shell(cmd[, root])
-* cmd {string} 要执行的命令
-* root {Boolean} 是否以root权限运行，默认为false。
+* cmd {string} command
+* root {Boolean} whether to run it with root, defaults to false
+* return an object:
+    * code {number} 0 if success，else if failed
+    * result {string} stdout
+    * error {string} stderr
 
-一次性执行命令cmd, 并返回命令的执行结果。返回对象的其属性如下:
-* code {number} 返回码。执行成功时为0，失败时为非0的数字。
-* result {string} 运行结果(stdout输出结果)
-* error {string} 运行的错误信息(stderr输出结果)。例如执行需要root权限的命令但没有授予root权限会返回错误信息"Permission denied"。
+Run a command by starting a sub-process.
     
-示例(强制停止微信) ： 
-```
-var result = shell("am force-stop com.tencent.mm", true);
+Force to stop chrome 
+```js
+var result = shell("am force-stop com.android.chrome", true);
 log(result);
 console.show();
 if(result.code == 0){
-  toast("执行成功");
+  toast("sucess");
 }else{
-  toast("执行失败！请到控制台查看错误信息");
+  toast("failed");
 }
 ```
 
@@ -36,67 +28,68 @@ if(result.code == 0){
 
 > Stability: 2 - Stable
 
-shell函数通过用来一次性执行单条命令并获取结果。如果有多条命令需要执行，用Shell对象的效率更高。这是因为，每次运行shell函数都会打开一个单独的shell进程并在运行结束后关闭他，这个过程需要一定的时间；而Shell对象自始至终使用同一个shell进程。
+Useful if you have to run many commands at once. Because this will only start one sub-process.
 
 ## new Shell(root)
-* root {Boolean} 是否以root权限运行一个shell进程，默认为false。这将会影响其后使用该Shell对象执行的命令的权限
+* root {Boolean} Run it using root or not, defaults to false
 
-Shell对象的"构造函数"。
 ```
 var sh = new Shell(true);
-//强制停止微信
 sh.exec("am force-stop com.tencent.mm");
 sh.exit();
 ```
 
 ## Shell.exec(cmd)
-* `cmd` {string} 要执行的命令
+* `cmd` {string} command
 
-执行命令cmd。该函数不会返回任何值。
+Run command, and return nothing.
 
-注意，命令执行是"异步"的、非阻塞的。也就是不会等待命令完成后才继续向下执行。
-
-尽管这样的设计使用起来有很多不便之处，但受限于终端模拟器，暂时没有解决方式；如果后续能找到解决方案，则将提供`Shell.execAndWaitFor`函数。
+**This is async**
 
 ## Shell.exit()
 
-直接退出shell。正在执行的命令会被强制退出。
+Exit shell
+
+**Not recommand**
 
 ## Shell.exitAndWaitFor()
 
-执行"exit"命令并等待执行命令执行完成、退出shell。
+Exit shell after commands running finished.
 
-此函数会执行exit命令来正常退出shell。
+**recommand**
 
 ## Shell.setCallback(callback)
-* callback {Object} 回调函数
+* callback {Object} An object, it has the following keys:
+    * onOutput {Function} Each time when shell got new output, this function will be called. The argument of this function is a string.
+    * onNewLine {Function} Each time when shell got a new line, this function will be called. The argument of this function is a string. ('\n' not included)
 
-设置该Shell的回调函数，以便监听Shell的输出。可以包括以下属性：
-* onOutput {Function} 每当shell有新的输出时便会调用该函数。其参数是一个字符串。
-* onNewLine {Function} 每当shell有新的一行输出时便会调用该函数。其参数是一个字符串(不包括最后的换行符)。
+Set Shell callback function.
 
-例如:
-```
+For example:
+```js
 var sh = new Shell();
+
 sh.setCallback({
 	onNewLine: function(line){
-		//有新的一行输出时打印到控制台
+		//do l log when new line comes
 		log(line);
 	}
 })
+
 while(true){
-	//循环输入命令
-	var cmd = dialogs.rawInput("请输入要执行的命令，输入exit退出");
+	//keep input new string
+	var cmd = dialogs.rawInput("Please input your command, type 'exit' to exit: ");
 	if(cmd == "exit"){
 		break;
 	}
-	//执行命令
+	//run the command
 	sh.exec(cmd);
 }
+
 sh.exit();
 ```
 
-# 附录: shell命令简介
+# Not important shell commands introduction
 
 以下关于shell命令的资料来自[AndroidStudio用户指南：Shell命令](https://developer.android.com/studio/command-line/adb.html#shellcommands)。
 
